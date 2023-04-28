@@ -4,8 +4,8 @@
     display: block;
     border: 2px solid black;
     padding: 5px;
-    min-width: 960px;
-    max-width: 950px;
+    max-width: 980px;
+    min-width: 980px;
 
 }
 .keyboard::after{
@@ -57,4 +57,7 @@
     margin: 3px;
     padding: 3px;
     float: left;
+}
+.active{
+    background-color: red;
 }
