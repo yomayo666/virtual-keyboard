@@ -4,8 +4,7 @@
     display: block;
     border: 2px solid black;
     padding: 5px;
-    max-width: 980px;
-    min-width: 980px;
+    width: 100vw;
 
 }
 .keyboard::after{
@@ -26,6 +25,10 @@
     margin: 3px;
     padding: 3px;
     float: left;
+}
+.klaw-ru:active{
+    color: white;
+    background-color: black;
 }
 .big-bat{
     font-size: 1.2rem;
@@ -59,5 +62,9 @@
     float: left;
 }
 .active{
-    background-color: red;
+    background-color: black;
+    color: white;
+}
+.main_form{
+    width: 100vw;
 }
