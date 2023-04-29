@@ -8,8 +8,15 @@ let form = document.createElement('form');
 form.className = "mainform";
 document.body.append(form);
 
-inp = '<input type="textarea" name="nasa-experience" value="1" class="main_form">'
+inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" disabled=disabled pointer-events: none;</textarea>'
 document.querySelector('.mainform').innerHTML = inp;
+
+let ford = document.createElement('form');
+ford.className = "mainform2";
+document.body.append(ford);
+hui = '<input type="checkbox" class="dudu" </input>'
+document.querySelector('.mainform2').innerHTML = hui;
+
 
 const addDivKeyboard = (() => {
     let div = document.createElement('div');
@@ -21,7 +28,7 @@ const addDivKeyboard = (() => {
 
 
 
-let buttons = ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","q","w","e","r","t","y","u","i","o","p","[","]","''","Delete","CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter","Shift","z","x","c","v","b","n","m",",",".","/","ArrowUp","Shift","Control","Meta","Alt",' ',"Alt","ArrowLeft","ArrowDown","ArrowRight","Control"]
+let buttons = ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","q","w","e","r","t","y","u","i","o","p","[","]","''","Delete","CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter","Shift","z","x","c","v","b","n","m",",",".","/","ArrowUp","Shift","Control","Meta","Alt",' ',"Alt","ArrowLeft","ArrowDown","ArrowRight","Co"]
 let makess = (() => {
     let klawa = '';
     for(let i = 0; i < buttons.length; i++){
@@ -45,18 +52,76 @@ let makess = (() => {
     document.querySelector('.keyboard').innerHTML = klawa;
 
 })()
+var p = ""
+
+// document.addEventListener('keyup', function(event){
+//     if (event.shiftKey && ['Alt'].includes(event.key) ) {
+//              console.log('Нажаты Shift + F или Shift + f');
+//         console.log(event)
+
+
+//             if (p == "") {
+//                 document.querySelector('.dudu').checked = "checked";
+//                 p = "checked"
+//             } else {
+//                 document.querySelector('.dudu').checked = "";S
+//                 p = ""
+//             }
+//     }
+// });
+document.addEventListener('keyup', function(event){
+    if (event.altKey && event.key=='Shift') {
+        console.log('Нажаты Shift + F или Shift + f');
+        console.log(event)
+        if (p == "") {
+            document.querySelector('.dudu').checked = "checked";
+            p = "checked"
+        } else {
+            document.querySelector('.dudu').checked = "";
+            p = ""
+        }
+    }else if(event.shiftKey && event.key=='Alt') {
+        console.log('Нажаты Shift + F или Shift + f');
+        console.log(event)
+        if (p == "") {
+            document.querySelector('.dudu').checked = "checked";
+            p = "checked"
+        } else {
+            document.querySelector('.dudu').checked = "";
+            p = ""
+        }
+    }
+});
+// document.addEventListener('keyup', function(event){
+//     if (event.altKey && ['Alt'].includes(event.key) ) {
+//              console.log('Нажаты Shift + F или Shift + f');
+//         console.log(event)
+//     }})
+// document.addEventListener('keyup', function(event){
+//     if (event.shiftKey && event.ctrlKey) {
+//         console.log('Нажаты Shift + F или Shift + f');
+//     }
+// });
+// document.addEventListener('keyup', function(event){
+//     if (['F','f'].includes(event.key)&& event.shiftKey) {
+//         console.log('Нажаты Shift + F или Shift + f');
+//     }
+// });
 
 
 let = ['keydown', 'keyup'].forEach(function(event) {
     window.addEventListener(event, function(event){
+        event.preventDefault()
         if (event.type == 'keydown') {
-            document.querySelector('.keyboard [data="'+ event.key+'"]').classList.add('active')
             console.log('Зажали...');
-            console.log(event);
-            document.querySelector('.main_form').value += event.key;
-            //event.preventDefault()
+            document.querySelector('.keyboard [data="'+ event.key+'"]').classList.add('active')
+            if(event.key.length === 1){
+                document.querySelector('.main_form').value += event.key;
+            }else{
+                event.preventDefault()
+            }
         }
-        else{
+        else{ 
           console.log('Отжали');
           document.querySelector('.keyboard [data="'+ event.key+'"]').classList.remove('active')
         }
@@ -84,10 +149,14 @@ let = ['keydown', 'keyup'].forEach(function(event) {
 //     }
 // })
 
+// document.addEventListener('keyup', function(event){
+//     if (event.shiftKey && ['F','f'].includes(event.key) ) {
+//         console.log('Нажаты Shift + F или Shift + f');
+//     }
+// });
 
-
-document.addEventListener('keyup', function(event){
-    if (event.shiftKey && ['F','f'].includes(event.key) ) {
-        console.log('Нажаты Shift + F или Shift + f');
-    }
-});
+// document.addEventListener('keyup', function(event){
+//     if (event.shiftKey && ['F','f'].includes(event.key) ) {
+//         console.log('Нажаты Shift + F или Shift + f');
+//     }
+// });
