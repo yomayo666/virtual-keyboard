@@ -76,4 +76,8 @@
     max-width: 980px;
     min-width: 980px;
     height: 20%;
+    
+}
+.dudu{
+    display: none;
 }
