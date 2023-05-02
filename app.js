@@ -14,7 +14,7 @@ form.className = "mainform";
 document.body.append(form);
 
 
-inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> Еще не доделал смена языка SHIFT ALT установи у себя айнлийский маленький и перезагрузи</textarea>'
+inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> Еще не доделал смена языка SHIFT ALT установи у себя Английский маленький и перезагрузи</textarea>'
 document.querySelector('.mainform').innerHTML = inp;
 
 let ford = document.createElement('form');
@@ -35,10 +35,11 @@ var litlle_key =""
 var ru_lit = ""
 var ru_big = ""
 var position
-let rubat =   ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","й","ц","у","к","е","н","г","ш","щ","з","х","ъ","/","Delete","CapsLock","ф","ы","в","а","п","р","о","л","д","ж","э","Enter","ShiftLeft","я","ч","с","м","и","т","ь","б","ю",".","ArrowUp","ShiftRight","Control","Meta","Alt",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
+let rubat =   ["ё","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","й","ц","у","к","е","н","г","ш","щ","з","х","ъ","/","Delete","CapsLock","ф","ы","в","а","п","р","о","л","д","ж","э","Enter","ShiftLeft","я","ч","с","м","и","т","ь","б","ю",".","ArrowUp","ShiftRight","Control","Meta","Alt",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
 let i = 0
 let buttons = ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","q","w","e","r","t","y","u","i","o","p","[","]","/","Delete","CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter","ShiftLeft","z","x","c","v","b","n","m",",",".","/","ArrowUp","ShiftRight","Control","Meta","Alt",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
 let makess = (() => {
+    
     for(let i = 0; i < buttons.length; i++){
         if(buttons[i] === "Backspace" || buttons[i] === "CapsLock" || buttons[i] === "Enter" || buttons[i] === "Shift"){
             litlle_key += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + buttons[i] + '</div>'
@@ -109,7 +110,6 @@ let makess = (() => {
         
         }
     }
-
     document.querySelector('.keyboard').innerHTML = litlle_key ;
     position = 1
 })()
@@ -162,7 +162,9 @@ let makess = (() => {
  const textarea = document.querySelector('textarea')
 
 window.addEventListener('keydown', (e) => {
+    textarea.focus();
     console.log(e)
+    
     if (e.key === "Alt")  {
         e.preventDefault()
     }
@@ -178,9 +180,30 @@ window.addEventListener('keydown', (e) => {
     )
   }if(e.code === "ShiftRight" || e.code === "AltRight" || e.code === "ControlRight"  ||  e.code ===   "ShiftLeft"){
     document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
-  }else{
+  }
+    if (e.code ===   "ShiftLeft" && e.repeat == false || e.key == "ShiftRight" && e.repeat == false) {
+        document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
+        console.log(position);    
+        if(position == 1){
+            position = 2
+            document.querySelector('.keyboard').innerHTML = big_cey
+        }else if(position == 2){
+            position = 1
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == 3){
+            position = 4
+            document.querySelector('.keyboard').innerHTML = ru_big;
+
+        }else if(position == 4){
+            position = 3
+            document.querySelector('.keyboard').innerHTML =  ru_lit;
+
+        }
+  }
+  else{
     document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
     document.querySelector(".main_form").target = "_blank";
+
   
   }
 })
@@ -196,10 +219,29 @@ window.addEventListener('keydown', (e) => {
 // });
 
 window.addEventListener('keyup', (e) => {
-    if(e.code === "ShiftRight" || e.code === "AltRight" || e.code === "ControlRight" ||  e.code ===   "ShiftLeft"){
+    if(e.code === "AltRight" || e.code === "ControlRight") {
         document.querySelector('.keyboard [data="'+ e.code +'"]').classList.remove('active')
         
-    }else{
+    }else if(e.code === "ShiftRight" || e.code ===   "ShiftLeft"){
+        document.querySelector('.keyboard [data="'+ e.code +'"]').classList.remove('active')
+        if(position == 1){
+            position = 2
+            document.querySelector('.keyboard').innerHTML = big_cey
+        }else if(position == 2){
+            position = 1
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == 3){
+            position = 4
+            document.querySelector('.keyboard').innerHTML = ru_big;
+    
+        }else if(position == 4){
+            position = 3
+            document.querySelector('.keyboard').innerHTML =  ru_lit;
+    
+        }
+
+    }
+    else{
         document.querySelector('.keyboard [data="'+ e.key+'"]').classList.remove('active')
     }
 })
@@ -222,31 +264,36 @@ window.addEventListener('keyup', (e) => {
 var p = ""
 document.addEventListener('keyup', function(event){
     if (event.altKey && event.key =='Shift') {
-        console.log('Нажаты Shift + F или Shift + f');
-        if (p == "") {
-            document.querySelector('.keyboard').innerHTML = ru_lit ;
+        if(position == 1){
             position = 3
-            p = "checked"
-        } else {
-            document.querySelector('.dudu').checked = "";
-            document.querySelector('.keyboard').innerHTML = litlle_key;
+            document.querySelector('.keyboard').innerHTML = ru_lit
+        }else if(position == 2){
+            position = 4
+            document.querySelector('.keyboard').innerHTML = big_cey;
+        }else if(position == 3){
             position = 1
-            p = ""
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == 4){
+            position = 2
+            document.querySelector('.keyboard').innerHTML =  ru_big;
+
         }
     }else if(event.shiftKey && event.key=='Alt') {
-        console.log('Нажаты Shift + F или Shift + f');
-        console.log(event)
-        if (p == "") {
-            document.querySelector('.dudu').checked = "checked";
-            document.querySelector('.keyboard').innerHTML = ru_lit;
+        if(position == 1){
             position = 3
-            p = "checked"
-        } else {
-            document.querySelector('.dudu').checked = "";
-            document.querySelector('.keyboard').innerHTML =litlle_key;
+            document.querySelector('.keyboard').innerHTML = ru_lit
+        }else if(position == 2){
+            position = 4
+            document.querySelector('.keyboard').innerHTML = big_cey;
+        }else if(position == 3){
             position = 1
-            p = ""
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == 4){
+            position = 2
+            document.querySelector('.keyboard').innerHTML =  ru_big;
+
         }
+       
     }
 });
 
@@ -266,7 +313,7 @@ document.addEventListener('keydown', function(event){
             position = 2
             document.querySelector('.keyboard').innerHTML = big_cey
         }else if(position == 2){
-            position = 11
+            position = 1
             document.querySelector('.keyboard').innerHTML = litlle_key;
         }else if(position == 3){
             position = 4
@@ -283,7 +330,7 @@ document.addEventListener('keydown', function(event){
 });
 var g = p
 
-
+textarea.focus()
 
 const m = (() => {
     if(g === "checked"){
@@ -291,7 +338,7 @@ const m = (() => {
         document.querySelector('.keyboard').innerHTML = ru_big;
     }
 })();
-
+textarea.focus()
 // window.addEventListener('keydown', (e) => {
 //     if (e.key === "CapsLock")  {
 //         document.querySelector('.keyboard').innerHTML = big_cey;
@@ -358,16 +405,16 @@ const m = (() => {
 //       }
 //     });
 //   });
-// document.querySelectorAll('.keyboard .klaw-ru').forEach(function(element){
-//     element.onclick = function(element){
-//         document.querySelectorAll('.keyboard .klaw-ru').forEach(function(element){
-//             element.classList.remove('active')
-//         })
-//         let code = this.getAttribute('data')
-//         this.classList.add('active')
-//         console.log(code)
-//     }
-// })
+document.querySelectorAll('.keyboard .klaw-ru').forEach(function(element){
+    element.onclick = function(element){
+        document.querySelectorAll('.keyboard .klaw-ru').forEach(function(element){
+            element.classList.remove('active')
+        })
+        let code = this.getAttribute('data')
+        this.classList.add('active')
+        console.log(code)
+    }
+})
 
 // document.addEventListener('keyup', function(event){
 //     if (event.shiftKey && ['F','f'].includes(event.key) ) {
