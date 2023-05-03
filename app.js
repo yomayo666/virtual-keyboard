@@ -14,7 +14,7 @@ form.className = "mainform";
 document.body.append(form);
 
 
-inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> Еще не доделал смена языка SHIFT ALT установи у себя айнлийский маленький и перезагрузи</textarea>'
+inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> Еще не доделал смена языка SHIFT ALT установи у себя Английский маленький и перезагрузи</textarea>'
 document.querySelector('.mainform').innerHTML = inp;
 
 let ford = document.createElement('form');
@@ -29,23 +29,35 @@ const addDivKeyboard = (() => {
     div.className = "keyboard";
     document.body.append(div);
 })();
-
+function litleChangeRu(str) {
+    return /[а-я]/.test(str);
+}
+function litleChangeEn(str){
+    return /[a-z]/.test(str);
+}
+function bigChangeRu(str){
+    return /[А-Я]/.test(str);
+}
+function bigChangeEn(str){
+    return /[A-Z]/.test(str);
+}
 var big_cey =""
 var litlle_key =""
 var ru_lit = ""
 var ru_big = ""
 var position
-let rubat =   ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","й","ц","у","к","е","н","г","ш","щ","з","х","ъ","/","Delete","CapsLock","ф","ы","в","а","п","р","о","л","д","ж","э","Enter","ShiftLeft","я","ч","с","м","и","т","ь","б","ю",".","ArrowUp","ShiftRight","Control","Meta","Alt",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
+let rubat =   ["ё","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","й","ц","у","к","е","н","г","ш","щ","з","х","ъ","/","Delete","CapsLock","ф","ы","в","а","п","р","о","л","д","ж","э","Enter","ShiftLeft","я","ч","с","м","и","т","ь","б","ю",".","ArrowUp","ShiftRight","ControlLeft","Meta","AltLeft",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
 let i = 0
-let buttons = ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","q","w","e","r","t","y","u","i","o","p","[","]","/","Delete","CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter","ShiftLeft","z","x","c","v","b","n","m",",",".","/","ArrowUp","ShiftRight","Control","Meta","Alt",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
+let buttons = ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace","Tab","q","w","e","r","t","y","u","i","o","p","[","]","/","Delete","CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter","ShiftLeft","z","x","c","v","b","n","m",",",".","/","ArrowUp","ShiftRight","ControlLeft","Meta","AltLeft",' ',"AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]
 let makess = (() => {
+    
     for(let i = 0; i < buttons.length; i++){
         if(buttons[i] === "Backspace" || buttons[i] === "CapsLock" || buttons[i] === "Enter" || buttons[i] === "Shift"){
             litlle_key += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + buttons[i] + '</div>'
             big_cey += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + buttons[i] + '</div>'
             ru_lit += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + buttons[i] + '</div>'
             ru_big += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + buttons[i] + '</div>'
-        }else if(buttons[i] === "AltRight"){
+        }else if(buttons[i] === "AltRight" || buttons[i] === "AltLeft"){
             litlle_key +='<div class="klaw-ru" data="'+buttons[i]+'">' + "Alt" + '</div>'
             big_cey += '<div class="klaw-ru" data="'+buttons[i]+'">' + "Alt" + '</div>'
             ru_lit +='<div class="klaw-ru" data="'+buttons[i]+'">' + "Alt" + '</div>'
@@ -63,7 +75,7 @@ let makess = (() => {
             ru_big += '<div class="big-bat klaw-ru" data="'+buttons[i]+'">' + "Shift" + '</div>'
             
         }
-        else if(buttons[i] === "ControlRight"){
+        else if(buttons[i] === "ControlRight" || buttons[i] === "ControlLeft"){
             litlle_key += '<div class="klaw-ru" data="'+buttons[i]+'">' + "Control" + '</div>'
             big_cey += '<div class="klaw-ru" data="'+buttons[i]+'">' + "Control" + '</div>'
             ru_lit += '<div class="klaw-ru" data="'+buttons[i]+'">' + "Control" + '</div>'
@@ -109,9 +121,8 @@ let makess = (() => {
         
         }
     }
-
     document.querySelector('.keyboard').innerHTML = litlle_key ;
-    position = 1
+    position = litlle_key
 })()
 
 
@@ -162,7 +173,9 @@ let makess = (() => {
  const textarea = document.querySelector('textarea')
 
 window.addEventListener('keydown', (e) => {
-    console.log(e)
+    textarea.focus();
+
+    
     if (e.key === "Alt")  {
         e.preventDefault()
     }
@@ -176,11 +189,68 @@ window.addEventListener('keydown', (e) => {
       textarea.selectionStart,
       'end'
     )
-  }if(e.code === "ShiftRight" || e.code === "AltRight" || e.code === "ControlRight"  ||  e.code ===   "ShiftLeft"){
+  }if(e.code === "AltRight"){
     document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
-  }else{
-    document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
-    document.querySelector(".main_form").target = "_blank";
+  }if(e.code === "ControlRight"  ){
+    document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
+  }if(e.code === "AltLeft"){
+    document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
+  }if(e.code === "ControlLeft"  ){
+    document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active')
+  }
+    if (e.code ===   "ShiftLeft" && e.repeat == false || e.code == "ShiftRight" && e.repeat == false) {
+
+          
+        if(position == litlle_key){
+            position = big_cey
+            document.querySelector('.keyboard').innerHTML = big_cey
+            document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active') 
+        }else if(position == big_cey){
+            position = litlle_key
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+            document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active') 
+        }else if(position == ru_lit){
+            position = ru_big
+            document.querySelector('.keyboard').innerHTML = ru_big;
+            document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active') 
+
+        }else if(position == ru_big){
+            position = ru_lit
+            document.querySelector('.keyboard').innerHTML =  ru_lit;
+            document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active') 
+
+        } 
+   }else{
+    if(litleChangeRu(e.key)){
+        document.querySelector('.keyboard').innerHTML = ru_lit ;
+        position = ru_lit
+    }else if(bigChangeRu(e.key)){
+        document.querySelector('.keyboard').innerHTML = ru_big ;
+        position = ru_big
+    }else if(bigChangeEn(e.key)  && e.key.length < 2){
+        document.querySelector('.keyboard').innerHTML = big_cey ;
+        position = big_cey
+    }else if(litleChangeEn(e.key)  && e.key.length < 2){
+        document.querySelector('.keyboard').innerHTML = litlle_key ;
+        position = litlle_key
+    }
+            document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active') 
+    
+        // else if(bigChangeEn(e.key)){
+        //     position = big_cey
+        // console.log("dasdasdasdasdas")
+        // document.querySelector('.keyboard').innerHTML = big_cey
+        // document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active') 
+        // }
+        
+    // }else if(bigChangeEn(e.key)){
+    //     position = 2
+    //     document.querySelector('.keyboard').innerHTML = big_cey;
+    //     document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active') 
+    // }else{
+    //     document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active') 
+    // }
+    
   
   }
 })
@@ -196,11 +266,30 @@ window.addEventListener('keydown', (e) => {
 // });
 
 window.addEventListener('keyup', (e) => {
-    if(e.code === "ShiftRight" || e.code === "AltRight" || e.code === "ControlRight" ||  e.code ===   "ShiftLeft"){
+    if(e.code === "AltRight" || e.code === "ControlRight" || e.code === "AltRight" || e.code === "ControlRight") {
+
         document.querySelector('.keyboard [data="'+ e.code +'"]').classList.remove('active')
         
+    }else if(e.code === "ShiftRight" || e.code ===   "ShiftLeft"){
+        document.querySelector('.keyboard [data="'+ e.code +'"]').classList.remove('active')
+        if(position == litlle_key){
+            position = big_cey
+            document.querySelector('.keyboard').innerHTML = big_cey;
+        }else if(position == big_cey){
+            position = litlle_key
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == ru_lit){
+            position = ru_big
+            document.querySelector('.keyboard').innerHTML = ru_big;
+        }else if(position == ru_big){
+            position = ru_lit
+            document.querySelector('.keyboard').innerHTML =  ru_lit;
+    
+        }
+
     }else{
-        document.querySelector('.keyboard [data="'+ e.key+'"]').classList.remove('active')
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.remove('active')
+
     }
 })
 // window.addEventListener('keydown', (e) => {
@@ -218,35 +307,40 @@ window.addEventListener('keyup', (e) => {
 // })
 
 
-
+///////////////////////////////////
 var p = ""
 document.addEventListener('keyup', function(event){
     if (event.altKey && event.key =='Shift') {
-        console.log('Нажаты Shift + F или Shift + f');
-        if (p == "") {
-            document.querySelector('.keyboard').innerHTML = ru_lit ;
-            position = 3
-            p = "checked"
-        } else {
-            document.querySelector('.dudu').checked = "";
+         if(position == litlle_key){
+            position = ru_lit
+            document.querySelector('.keyboard').innerHTML = ru_lit
+        }else if(position == ru_lit){
+            position = litlle_key;
             document.querySelector('.keyboard').innerHTML = litlle_key;
-            position = 1
-            p = ""
+        }else if(position == ru_big){
+            position = big_cey;
+            document.querySelector('.keyboard').innerHTML = big_cey;
+        }else if(position == big_cey){
+            position = ru_big;
+            document.querySelector('.keyboard').innerHTML =  ru_big
+
         }
     }else if(event.shiftKey && event.key=='Alt') {
-        console.log('Нажаты Shift + F или Shift + f');
-        console.log(event)
-        if (p == "") {
-            document.querySelector('.dudu').checked = "checked";
-            document.querySelector('.keyboard').innerHTML = ru_lit;
-            position = 3
-            p = "checked"
-        } else {
-            document.querySelector('.dudu').checked = "";
-            document.querySelector('.keyboard').innerHTML =litlle_key;
-            position = 1
-            p = ""
+        if(position == litlle_key){
+            position = ru_lit
+            document.querySelector('.keyboard').innerHTML = ru_lit
+        }else if(position == ru_lit){
+            position = litlle_key;
+            document.querySelector('.keyboard').innerHTML = litlle_key;
+        }else if(position == ru_big){
+            position = big_cey;
+            document.querySelector('.keyboard').innerHTML = big_cey;
+        }else if(position == big_cey){
+            position = ru_big;
+            document.querySelector('.keyboard').innerHTML =  ru_big
+
         }
+        
     }
 });
 
@@ -261,37 +355,36 @@ var a = 1
 
 document.addEventListener('keydown', function(event){
     if (event.key === "CapsLock" && event.repeat == false) {
-        console.log(position);    
-        if(position == 1){
-            position = 2
+
+        if(position == litlle_key){
+            position = big_cey
             document.querySelector('.keyboard').innerHTML = big_cey
-        }else if(position == 2){
-            position = 11
+        }else if(position == big_cey){
+            position = litlle_key;
             document.querySelector('.keyboard').innerHTML = litlle_key;
-        }else if(position == 3){
-            position = 4
+        }else if(position == ru_lit){
+            position = ru_big
             document.querySelector('.keyboard').innerHTML = ru_big;
 
-        }else if(position == 4){
-            position = 3
+        }else if(position == ru_big){
+            position = ru_lit;
             document.querySelector('.keyboard').innerHTML =  ru_lit;
 
         }
     } else {
-        console.log('повторное срабатывание');
+   
     }
 });
-var g = p
+// var g = p
 
+// textarea.focus()
 
-
-const m = (() => {
-    if(g === "checked"){
-        console.log(g)
-        document.querySelector('.keyboard').innerHTML = ru_big;
-    }
-})();
-
+// const m = (() => {
+//     if(g === "checked"){
+//         document.querySelector('.keyboard').innerHTML = ru_big;
+//     }
+// })();
+// textarea.focus()
 // window.addEventListener('keydown', (e) => {
 //     if (e.key === "CapsLock")  {
 //         document.querySelector('.keyboard').innerHTML = big_cey;
@@ -365,7 +458,7 @@ const m = (() => {
 //         })
 //         let code = this.getAttribute('data')
 //         this.classList.add('active')
-//         console.log(code)
+ 
 //     }
 // })
 
