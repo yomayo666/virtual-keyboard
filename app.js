@@ -224,17 +224,25 @@ window.addEventListener('keydown', (e) => {
     if(litleChangeRu(e.key)){
         document.querySelector('.keyboard').innerHTML = ru_lit ;
         position = ru_lit
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
     }else if(bigChangeRu(e.key)){
         document.querySelector('.keyboard').innerHTML = ru_big ;
         position = ru_big
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
     }else if(bigChangeEn(e.key)  && e.key.length < 2){
         document.querySelector('.keyboard').innerHTML = big_cey ;
         position = big_cey
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
     }else if(litleChangeEn(e.key)  && e.key.length < 2){
         document.querySelector('.keyboard').innerHTML = litlle_key ;
         position = litlle_key
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
+    }else if(e.code === "AltLeft" || e.code === "ControlLeft" || e.code === "AltRight" || e.code === "ControlRight"){
+        document.querySelector('.keyboard [data="'+ e.code +'"]').classList.add('active') 
+    }else{
+        document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active')
     }
-            document.querySelector('.keyboard [data="'+ e.key +'"]').classList.add('active') 
+            
     
         // else if(bigChangeEn(e.key)){
         //     position = big_cey
@@ -266,7 +274,7 @@ window.addEventListener('keydown', (e) => {
 // });
 
 window.addEventListener('keyup', (e) => {
-    if(e.code === "AltRight" || e.code === "ControlRight" || e.code === "AltRight" || e.code === "ControlRight") {
+    if(e.code === "AltLeft" || e.code === "ControlLeft" || e.code === "AltRight" || e.code === "ControlRight") {
 
         document.querySelector('.keyboard [data="'+ e.code +'"]').classList.remove('active')
         
