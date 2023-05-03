@@ -14,7 +14,7 @@ form.className = "mainform";
 document.body.append(form);
 
 
-inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> Еще не доделал смена языка SHIFT ALT установи у себя Английский маленький и перезагрузи</textarea>'
+inp = '<textarea name="nasa-experience" value="1" class="main_form" rows="10" cols="20" autofocus> cмена языка SHIFT ALT </textarea>'
 document.querySelector('.mainform').innerHTML = inp;
 
 let ford = document.createElement('form');
